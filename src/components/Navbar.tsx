@@ -1,23 +1,18 @@
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 
-type Theme = "light" | "dark";
+const navItems = ['Leetcode', 'Blogs', 'Books', 'Notes']
 
-type NavbarProps = {
-  theme: Theme;
-  onToggleTheme: () => void;
-};
-
-const navItems = ["Leetcode", "Blogs", "Books", "Notes"];
-
-export default function Navbar({ theme, onToggleTheme }: NavbarProps) {
-  const isDark = theme === "dark";
+export default function Navbar() {
+  const { theme, toggleTheme } = useTheme()
+  const isDark = theme === 'dark'
 
   return (
     <header
       className={`sticky top-0 z-10 flex items-center justify-between gap-4 border-b px-5 py-4 ${
         isDark
-          ? "border-slate-800 bg-slate-950 text-slate-100"
-          : "border-slate-200 bg-white text-slate-900"
+          ? 'border-slate-800 bg-slate-950 text-slate-100'
+          : 'border-slate-200 bg-white text-slate-900'
       }`}
     >
       <a className="font-medium tracking-tight" href="/">
@@ -30,8 +25,8 @@ export default function Navbar({ theme, onToggleTheme }: NavbarProps) {
             key={item}
             className={`text-sm transition-colors ${
               isDark
-                ? "text-slate-400 hover:text-slate-100"
-                : "text-slate-600 hover:text-slate-900"
+                ? 'text-slate-400 hover:text-slate-100'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
             href={`/${item.toLowerCase()}`}
           >
@@ -42,16 +37,16 @@ export default function Navbar({ theme, onToggleTheme }: NavbarProps) {
 
       <button
         type="button"
-        className={`rounded-full  px-3 py-1.5 text-sm transition-colors ${
+        className={`rounded-full border px-3 py-1.5 text-sm transition-colors ${
           isDark
-            ? "border-slate-800 text-slate-100 hover:bg-slate-900"
-            : "border-slate-200 text-slate-900 hover:bg-slate-100"
+            ? 'border-slate-800 text-slate-100 hover:bg-slate-900'
+            : 'border-slate-200 text-slate-900 hover:bg-slate-100'
         }`}
-        onClick={onToggleTheme}
-        aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+        onClick={toggleTheme}
+        aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
       >
-        {theme === "light" ? <Sun /> : <Moon />}
+        {isDark ? <Sun /> : <Moon />}
       </button>
     </header>
-  );
+  )
 }
